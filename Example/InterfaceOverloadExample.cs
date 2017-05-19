@@ -115,14 +115,19 @@ namespace Example
             Assert.AreEqual("It's Non-Mutable", widget.Text);
         }
 
-        public class WrappedUiWidget : BaseUiWidget, ISetText{}
 
-        public class BaseUiWidget {//Like a TextBox
+        //System or Library UI Widget with a functionality we need, and can't change.
+        public class BaseUiWidget {
             public string Text { get;  set; }
         }
 
+        //Operates as a "mix-in"
         public interface ISetText { string Text { set; } }
+        
+        //The Wrapped Widget utilizing the mix-in
+        public class WrappedUiWidget : BaseUiWidget, ISetText { }
 
+        //The Data Encapsulator
         public partial class EncapsulatedData
         {
             private readonly string _value;
